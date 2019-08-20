@@ -50,6 +50,13 @@ namespace C4i.BehaviourTree
             return this;
         }
 
+        public BehaviourTreeBuilder Wait(string nodeName, long ticks)
+        {
+            var waitNode = new WaitNode(nodeName, ticks);
+            parentNodeStack.Peek().AddChild(waitNode);
+            return this;
+        }
+
         public BehaviourTreeBuilder Selector(string nodeName)
         {
             var node = new SelectorNode(nodeName);

@@ -171,5 +171,17 @@ namespace BehaviourTreeTests
             Assert.IsType<WhileNode>(((BehaviourTree)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Failure, tree.Visit(1, null));
         }
+
+        [Fact]
+        public void TestActionAddWaitNode()
+        {
+            var tree = behaviourTreeNode
+                    .Wait("Wait", 1000)
+                .End()
+                .Build();
+
+            Assert.IsType<WaitNode>(((BehaviourTree)tree).ChildNode);
+            Assert.Equal(BehaviourReturnCode.Running, tree.Visit(1, null));
+        }
     }
 }
