@@ -1,7 +1,15 @@
 ﻿using System;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
+    /// <summary>
+    /// Returns the inverse of the result of the child action when visited.
+    /// 
+    /// Sucess -> Failure
+    /// Failure -> Sucess
+    /// Error -> Error
+    /// Running -> Running
+    /// </summary>
     public class InverterNode : BehaviourNode
     {
         private readonly ActionNode childNode;

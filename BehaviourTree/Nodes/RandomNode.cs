@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
+    /// <summary>
+    /// Visits one of the child nodes at random, and continues visiting that child until it finishes running.
+    /// </summary>
     public class RandomNode : BehaviourNode, IBehaviourTreeParentNode
     {
         private readonly List<BehaviourNode> childNodes = null;

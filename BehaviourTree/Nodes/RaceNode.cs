@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
+    /// <summary>
+    /// Visits all of the children during every call to the Visit method. Returns a success result when the first one
+    /// succeeds, a failure result if they all failed, or running if any are still working.
+    /// </summary>
     public class RaceNode : BehaviourNode, IBehaviourTreeParentNode
     {
         private readonly List<BehaviourNode> childNodes = null;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
     public class SucceedNode : BehaviourNode
     {

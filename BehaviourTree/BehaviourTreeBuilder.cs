@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
+    /// <summary>
+    /// Fluent API class to help build behaviour trees.
+    /// </summary>
     public class BehaviourTreeBuilder
     {
         private BehaviourTree rootNode = null;

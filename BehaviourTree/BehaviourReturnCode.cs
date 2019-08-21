@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
+    /// <summary>
+    /// Return codes for a node status.
+    /// </summary>
     public enum BehaviourReturnCode
     {
         Ready,

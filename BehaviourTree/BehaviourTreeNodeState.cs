@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
+    /// <summary>
+    /// The current state of a node and its child nodes.
+    /// </summary>
     public class BehaviourTreeNodeState : IBehaviourTreeState
     {
         public string NodeName { get; internal set; }

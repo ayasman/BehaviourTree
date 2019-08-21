@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
+    /// <summary>
+    /// Waits a given amount of time (ticks), then returns a success.
+    /// </summary>
     public class WaitNode : BehaviourNode
     {
         private long ticksToWait;

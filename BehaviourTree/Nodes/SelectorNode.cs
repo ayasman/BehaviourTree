@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
+    /// <summary>
+    /// Visits all of the child nodes in order until one succeeds or they all fail.
+    /// </summary>
     public class SelectorNode : BehaviourNode, IBehaviourTreeParentNode
     {
         private readonly List<BehaviourNode> childNodes = null;

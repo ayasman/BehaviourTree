@@ -1,7 +1,10 @@
 ﻿using System;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
+    /// <summary>
+    /// Base class for all of the nodes in a behaviour tree.
+    /// </summary>
     public abstract class BehaviourNode : IBehaviourTreeNode
     {
         public BehaviourNode(string nodeName)

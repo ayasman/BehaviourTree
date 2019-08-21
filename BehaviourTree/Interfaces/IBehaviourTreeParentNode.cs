@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
     public interface IBehaviourTreeParentNode
     {

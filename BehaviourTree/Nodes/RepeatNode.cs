@@ -1,7 +1,11 @@
 ﻿using System;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
+    /// <summary>
+    /// Repeats the an action a given number of times. Succeeds if all calls to the action succeed, and fails
+    /// if any call fails. Returns running otherwise. An error is returned if the count is in an invalid state.
+    /// </summary>
     public class RepeatNode : BehaviourNode
     {
         private readonly ActionNode childNode;

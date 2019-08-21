@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace C4i.BehaviourTree
+namespace AYLib.BehaviourTree
 {
     /// <summary>
-    /// A leaf, or action, node within a tree. Contains no children, and does the action sent in during construction.
+    /// A leaf, or action, node within a tree. Contains no children, and does the action sent in when the Visit method is called.
     /// </summary>
     public class ActionNode : BehaviourNode
     {
