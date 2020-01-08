@@ -9,8 +9,18 @@ namespace AYLib.BehaviourTree
     /// </summary>
     public interface IBehaviourTreeNode
     {
+        /// <summary>
+        /// Visits the node.
+        /// </summary>
+        /// <param name="elapsedTime">The time since last visit</param>
+        /// <param name="dataContext">The data context to run against</param>
+        /// <returns>Completion state of the node</returns>
         BehaviourReturnCode Visit(long elapsedTime, object dataContext);
 
+        /// <summary>
+        /// Gets the state data of the node.
+        /// </summary>
+        /// <returns>Node state data</returns>
         IBehaviourTreeState GetState();
     }
 }

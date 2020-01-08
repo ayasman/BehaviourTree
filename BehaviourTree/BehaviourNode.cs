@@ -37,7 +37,7 @@ namespace AYLib.BehaviourTree
         /// <summary>
         /// Gets the state data of the node.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Node state data</returns>
         public virtual IBehaviourTreeState GetState()
         {
             return new BehaviourTreeNodeState(Name, CurrentState);

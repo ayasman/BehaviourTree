@@ -12,6 +12,12 @@ namespace AYLib.BehaviourTree
         private readonly uint repeatCount;
         private uint currentCount = 0;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="nodeName">User friendly name of the node</param>
+        /// <param name="childAction">The action to take when visiting the node</param>
+        /// <param name="repeatCount">The number of times to repeat the action</param>
         public RepeatNode(string nodeName, ActionNode childAction, uint repeatCount)
             : base(nodeName)
         {
@@ -19,6 +25,12 @@ namespace AYLib.BehaviourTree
             this.repeatCount = currentCount = repeatCount;
         }
 
+        /// <summary>
+        /// Calls the action for the node.
+        /// </summary>
+        /// <param name="elapsedTime">The time since last visit</param>
+        /// <param name="dataContext">The data context to run against</param>
+        /// <returns>Completion state of the node</returns>
         public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
         {
             if (currentCount > 0)
@@ -44,6 +56,9 @@ namespace AYLib.BehaviourTree
             return Error();
         }
 
+        /// <summary>
+        /// Resets the node state to ready.
+        /// </summary>
         public override void ResetState()
         {
             base.ResetState();

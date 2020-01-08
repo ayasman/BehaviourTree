@@ -12,18 +12,33 @@ namespace AYLib.BehaviourTree
         private readonly List<BehaviourNode> childNodes = null;
         private BehaviourNode runningNode = null;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="nodeName">User friendly name of the node</param>
         public SelectorNode(string nodeName)
             : base(nodeName)
         {
             childNodes = new List<BehaviourNode>();
         }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="nodeName">User friendly name of the node</param>
+        /// <param name="childNodes">The child nodes to initialize with</param>
         public SelectorNode(string nodeName, List<BehaviourNode> childNodes)
             : base(nodeName)
         {
             this.childNodes = childNodes;
         }
 
+        /// <summary>
+        /// Visits child nodes in order.
+        /// </summary>
+        /// <param name="elapsedTime">The time since last visit</param>
+        /// <param name="dataContext">The data context to run against</param>
+        /// <returns>Completion state of the node</returns>
         public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
         {
             var processingNodes = runningNode == null
@@ -46,11 +61,19 @@ namespace AYLib.BehaviourTree
             return Failed();
         }
 
+        /// <summary>
+        /// Adds child node.
+        /// </summary>
+        /// <param name="childNode">The new child node</param>
         public void AddChild(BehaviourNode childNode)
         {
             childNodes.Add(childNode);
         }
 
+        /// <summary>
+        /// Gets the state data of the node.
+        /// </summary>
+        /// <returns>Node state data</returns>
         public override IBehaviourTreeState GetState()
         {
             var state = base.GetState();
@@ -59,6 +82,9 @@ namespace AYLib.BehaviourTree
             return state;
         }
 
+        /// <summary>
+        /// Resets the node state to ready.
+        /// </summary>
         public override void ResetState()
         {
             base.ResetState();

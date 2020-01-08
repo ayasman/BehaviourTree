@@ -9,10 +9,19 @@ namespace AYLib.BehaviourTree
     /// </summary>
     public interface IBehaviourTreeState
     {
+        /// <summary>
+        /// User friendly name of the node.
+        /// </summary>
         string NodeName { get; }
 
+        /// <summary>
+        /// Current running state of the node.
+        /// </summary>
         BehaviourReturnCode CurrentState { get; }
 
+        /// <summary>
+        /// List of child nodes.
+        /// </summary>
         List<IBehaviourTreeState> Children { get; }
     }
 }

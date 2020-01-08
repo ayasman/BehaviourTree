@@ -9,6 +9,10 @@ namespace AYLib.BehaviourTree
     /// </summary>
     public interface IBehaviourTreeParentNode
     {
+        /// <summary>
+        /// Sets the root node of the tree.
+        /// </summary>
+        /// <param name="childNode">The new root node</param>
         void AddChild(BehaviourNode childNode);
     }
 }

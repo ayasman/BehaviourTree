@@ -9,6 +9,12 @@ namespace AYLib.BehaviourTree
         private BehaviourNode runningNode = null;
         private bool actionSuccess = false;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="nodeName">User friendly name of the node</param>
+        /// <param name="conditionNode">The condition node that is checked to perform loop</param>
+        /// <param name="childNode">The action node that is visited</param>
         public WhileNode(string nodeName, ActionNode conditionNode, ActionNode childNode)
             : base(nodeName)
         {
@@ -16,6 +22,12 @@ namespace AYLib.BehaviourTree
             actionChildNode = childNode;
         }
 
+        /// <summary>
+        /// Calls the condition node and, if passes, the child action node.
+        /// </summary>
+        /// <param name="elapsedTime">The time since last visit</param>
+        /// <param name="dataContext">The data context to run against</param>
+        /// <returns>Completion state of the node</returns>
         public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
         {
             if (runningNode == null)
@@ -67,6 +79,10 @@ namespace AYLib.BehaviourTree
             return Failed();
         }
 
+        /// <summary>
+        /// Gets the state data of the node.
+        /// </summary>
+        /// <returns>Node state data</returns>
         public override IBehaviourTreeState GetState()
         {
             var state = base.GetState();
@@ -75,6 +91,9 @@ namespace AYLib.BehaviourTree
             return state;
         }
 
+        /// <summary>
+        /// Resets the node state to ready.
+        /// </summary>
         public override void ResetState()
         {
             base.ResetState();
