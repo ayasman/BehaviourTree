@@ -50,7 +50,7 @@ namespace BehaviourTreeTests
         public void TestActionAddRepeatNode()
         {
             var tree = behaviourTreeNode
-                    .Repeat("Invert", (x, y) => BehaviourReturnCode.Success, 1)
+                    .Repeat("Repeat", (x, y) => BehaviourReturnCode.Success, 1)
                 .End()
                 .Build();
 

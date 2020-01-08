@@ -16,23 +16,43 @@ namespace AYLib.BehaviourTree
 
         internal BehaviourNode ChildNode => childNode;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="nodeName">User friendly name of the node</param>
         public BehaviourTree(string nodeName)
             : base(nodeName)
         {
 
         }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="nodeName">User friendly name of the node</param>
+        /// <param name="childNode">The initial node to add to the root of the tree</param>
         public BehaviourTree(string nodeName, BehaviourNode childNode)
             : base(nodeName)
         {
             AddChild(childNode);
         }
 
+        /// <summary>
+        /// Sets the root node of the tree.
+        /// </summary>
+        /// <param name="childNode">The new root node</param>
         public void AddChild(BehaviourNode childNode)
         {
             this.childNode = childNode;
         }
 
+        /// <summary>
+        /// Visits the root of the tree. Will reset the state if it isn't running at all, and then visit the
+        /// child nodes.
+        /// </summary>
+        /// <param name="elapsedTime">The time since last visit</param>
+        /// <param name="dataContext">The data context to run against</param>
+        /// <returns>The state of the tree (running if any running, failed, or success</returns>
         public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
         {
             if (childNode == null)
@@ -44,6 +64,10 @@ namespace AYLib.BehaviourTree
             return Return(childNode.Visit(elapsedTime, dataContext));
         }
 
+        /// <summary>
+        /// Gets the state of all nodes in the tree.
+        /// </summary>
+        /// <returns>Object containing state of all tree nodes</returns>
         public override IBehaviourTreeState GetState()
         {
             var state = base.GetState();
@@ -51,6 +75,9 @@ namespace AYLib.BehaviourTree
             return state;
         }
 
+        /// <summary>
+        /// Resets the state of all nodes in the tree to Ready.
+        /// </summary>
         public override void ResetState()
         {
             base.ResetState();
