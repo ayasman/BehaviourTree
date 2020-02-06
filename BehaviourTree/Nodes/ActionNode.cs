@@ -5,7 +5,7 @@ namespace AYLib.BehaviourTree
     /// <summary>
     /// A leaf, or action, node within a tree. Contains no children, and does the action sent in when the Visit method is called.
     /// </summary>
-    public class ActionNode : BehaviourNode
+    internal class ActionNode : BehaviourNode
     {
         private Func<double, object, BehaviourReturnCode> actionFunction = null;
 

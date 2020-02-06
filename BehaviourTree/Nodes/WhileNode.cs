@@ -2,7 +2,7 @@
 
 namespace AYLib.BehaviourTree
 {
-    public class WhileNode : BehaviourNode
+    internal class WhileNode : BehaviourNode
     {
         private readonly BehaviourNode conditionChildNode;
         private readonly BehaviourNode actionChildNode;

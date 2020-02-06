@@ -6,7 +6,7 @@ namespace AYLib.BehaviourTree
     /// <summary>
     /// Visits one of the child nodes at random, and continues visiting that child until it finishes running.
     /// </summary>
-    public class RandomNode : BehaviourNode, IBehaviourTreeParentNode
+    internal class RandomNode : BehaviourNode, IBehaviourTreeParentNode
     {
         private readonly List<BehaviourNode> childNodes = null;
         private BehaviourNode runningNode = null;

@@ -2,7 +2,7 @@
 
 namespace AYLib.BehaviourTree
 {
-    public class SucceedNode : BehaviourNode
+    internal class SucceedNode : BehaviourNode
     {
         private readonly ActionNode childNode;
 

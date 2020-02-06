@@ -10,7 +10,7 @@ namespace AYLib.BehaviourTree
     /// While not totally necessary to use this as the top level, the Visit method will be used
     /// to reset the state in the tree after a completed run.
     /// </summary>
-    public class BehaviourTree : BehaviourNode, IBehaviourTreeParentNode
+    internal class BehaviourTree : BehaviourNode, IBehaviourTreeParentNode
     {
         private BehaviourNode childNode;
 

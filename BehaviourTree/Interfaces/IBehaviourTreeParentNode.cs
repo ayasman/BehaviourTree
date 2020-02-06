@@ -7,7 +7,7 @@ namespace AYLib.BehaviourTree
     /// <summary>
     /// Defines a node that can contain child nodes (non-leaf).
     /// </summary>
-    public interface IBehaviourTreeParentNode
+    internal interface IBehaviourTreeParentNode
     {
         /// <summary>
         /// Sets the root node of the tree.

@@ -10,7 +10,7 @@ namespace AYLib.BehaviourTree
     /// Error -> Error
     /// Running -> Running
     /// </summary>
-    public class InverterNode : BehaviourNode
+    internal class InverterNode : BehaviourNode
     {
         private readonly ActionNode childNode;
 

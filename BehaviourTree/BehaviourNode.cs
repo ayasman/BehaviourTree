@@ -5,7 +5,7 @@ namespace AYLib.BehaviourTree
     /// <summary>
     /// Base class for all of the nodes in a behaviour tree.
     /// </summary>
-    public abstract class BehaviourNode : IBehaviourTreeNode
+    internal abstract class BehaviourNode : IBehaviourTreeNode
     {
         /// <summary>
         /// Constructor.

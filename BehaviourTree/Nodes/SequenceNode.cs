@@ -7,7 +7,7 @@ namespace AYLib.BehaviourTree
     /// <summary>
     /// Visits all of the child nodes in order until one fails or they all succeed.
     /// </summary>
-    public class SequenceNode : BehaviourNode, IBehaviourTreeParentNode
+    internal class SequenceNode : BehaviourNode, IBehaviourTreeParentNode
     {
         private readonly List<BehaviourNode> childNodes = null;
         private BehaviourNode runningNode = null;
