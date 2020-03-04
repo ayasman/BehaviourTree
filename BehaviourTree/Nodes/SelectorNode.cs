@@ -7,10 +7,10 @@ namespace AYLib.BehaviourTree
     /// <summary>
     /// Visits all of the child nodes in order until one succeeds or they all fail.
     /// </summary>
-    internal class SelectorNode : BehaviourNode, IBehaviourTreeParentNode
+    internal class SelectorNode<TTime, TContext> : BehaviourNode<TTime, TContext>, IBehaviourTreeParentNode<TTime, TContext>
     {
-        private readonly List<BehaviourNode> childNodes = null;
-        private BehaviourNode runningNode = null;
+        private readonly List<BehaviourNode<TTime, TContext>> childNodes = null;
+        private BehaviourNode<TTime, TContext> runningNode = null;
 
         /// <summary>
         /// Constructor.
@@ -19,7 +19,7 @@ namespace AYLib.BehaviourTree
         public SelectorNode(string nodeName)
             : base(nodeName)
         {
-            childNodes = new List<BehaviourNode>();
+            childNodes = new List<BehaviourNode<TTime, TContext>>();
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace AYLib.BehaviourTree
         /// </summary>
         /// <param name="nodeName">User friendly name of the node</param>
         /// <param name="childNodes">The child nodes to initialize with</param>
-        public SelectorNode(string nodeName, List<BehaviourNode> childNodes)
+        public SelectorNode(string nodeName, List<BehaviourNode<TTime, TContext>> childNodes)
             : base(nodeName)
         {
             this.childNodes = childNodes;
@@ -39,7 +39,7 @@ namespace AYLib.BehaviourTree
         /// <param name="elapsedTime">The time since last visit</param>
         /// <param name="dataContext">The data context to run against</param>
         /// <returns>Completion state of the node</returns>
-        public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
+        public override BehaviourReturnCode Visit(TTime elapsedTime, TContext dataContext)
         {
             var processingNodes = runningNode == null
                                     ? childNodes
@@ -65,7 +65,7 @@ namespace AYLib.BehaviourTree
         /// Adds child node.
         /// </summary>
         /// <param name="childNode">The new child node</param>
-        public void AddChild(BehaviourNode childNode)
+        public void AddChild(BehaviourNode<TTime, TContext> childNode)
         {
             childNodes.Add(childNode);
         }

@@ -10,11 +10,11 @@ namespace AYLib.BehaviourTree
     /// While not totally necessary to use this as the top level, the Visit method will be used
     /// to reset the state in the tree after a completed run.
     /// </summary>
-    internal class BehaviourTree : BehaviourNode, IBehaviourTreeParentNode
+    internal class BehaviourTree<TTime, TContext> : BehaviourNode<TTime, TContext>, IBehaviourTreeParentNode<TTime, TContext>
     {
-        private BehaviourNode childNode;
+        private BehaviourNode<TTime, TContext> childNode;
 
-        internal BehaviourNode ChildNode => childNode;
+        internal BehaviourNode<TTime, TContext> ChildNode => childNode;
 
         /// <summary>
         /// Constructor.
@@ -31,7 +31,7 @@ namespace AYLib.BehaviourTree
         /// </summary>
         /// <param name="nodeName">User friendly name of the node</param>
         /// <param name="childNode">The initial node to add to the root of the tree</param>
-        public BehaviourTree(string nodeName, BehaviourNode childNode)
+        public BehaviourTree(string nodeName, BehaviourNode<TTime, TContext> childNode)
             : base(nodeName)
         {
             AddChild(childNode);
@@ -41,7 +41,7 @@ namespace AYLib.BehaviourTree
         /// Sets the root node of the tree.
         /// </summary>
         /// <param name="childNode">The new root node</param>
-        public void AddChild(BehaviourNode childNode)
+        public void AddChild(BehaviourNode<TTime, TContext> childNode)
         {
             this.childNode = childNode;
         }
@@ -53,7 +53,7 @@ namespace AYLib.BehaviourTree
         /// <param name="elapsedTime">The time since last visit</param>
         /// <param name="dataContext">The data context to run against</param>
         /// <returns>The state of the tree (running if any running, failed, or success</returns>
-        public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
+        public override BehaviourReturnCode Visit(TTime elapsedTime, TContext dataContext)
         {
             if (childNode == null)
                 throw new ApplicationException("Root node cannot have a null child.");

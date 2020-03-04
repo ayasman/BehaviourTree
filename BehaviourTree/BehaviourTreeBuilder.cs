@@ -27,10 +27,10 @@ namespace AYLib.BehaviourTree
     ///     .End()
     ///     .Build()
     /// </summary>
-    public class BehaviourTreeBuilder
+    public class BehaviourTreeBuilder<TTime, TContext>
     {
-        private BehaviourTree rootNode = null;
-        private Stack<IBehaviourTreeParentNode> parentNodeStack = new Stack<IBehaviourTreeParentNode>();
+        private BehaviourTree<TTime, TContext> rootNode = null;
+        private Stack<IBehaviourTreeParentNode<TTime, TContext>> parentNodeStack = new Stack<IBehaviourTreeParentNode<TTime, TContext>>();
 
         /// <summary>
         /// Constructor. Creates the root node to build on.
@@ -38,7 +38,7 @@ namespace AYLib.BehaviourTree
         /// <param name="rootName">User friendly name of the node</param>
         public BehaviourTreeBuilder(string rootName)
         {
-            rootNode = new BehaviourTree(rootName);
+            rootNode = new BehaviourTree<TTime, TContext>(rootName);
             parentNodeStack.Push(rootNode);
         }
 
@@ -48,9 +48,9 @@ namespace AYLib.BehaviourTree
         /// <param name="nodeName">User friendly name of the node</param>
         /// <param name="action">The action the node will perform (given elapsedTime and dataContext)</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Action(string nodeName, Func<double, object, BehaviourReturnCode> action)
+        public BehaviourTreeBuilder<TTime, TContext> Action(string nodeName, Func<TTime, TContext, BehaviourReturnCode> action)
         {
-            var node = new ActionNode(nodeName, action);
+            var node = new ActionNode<TTime, TContext>(nodeName, action);
             parentNodeStack.Peek().AddChild(node);
             return this;
         }
@@ -61,9 +61,9 @@ namespace AYLib.BehaviourTree
         /// <param name="nodeName">User friendly name of the node</param>
         /// <param name="action">The action the node will perform (given elapsedTime and dataContext)</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Invert(string nodeName, Func<double, object, BehaviourReturnCode> action)
+        public BehaviourTreeBuilder<TTime, TContext> Invert(string nodeName, Func<TTime, TContext, BehaviourReturnCode> action)
         {
-            var invert = new InverterNode(nodeName, new ActionNode(nodeName, action));
+            var invert = new InverterNode<TTime, TContext>(nodeName, new ActionNode<TTime, TContext>(nodeName, action));
             parentNodeStack.Peek().AddChild(invert);
             return this;
         }
@@ -75,9 +75,9 @@ namespace AYLib.BehaviourTree
         /// <param name="action">The action the node will perform (given elapsedTime and dataContext)</param>
         /// <param name="repeatCount">The number of times to repeat the action</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Repeat(string nodeName, Func<double, object, BehaviourReturnCode> action, uint repeatCount)
+        public BehaviourTreeBuilder<TTime, TContext> Repeat(string nodeName, Func<TTime, TContext, BehaviourReturnCode> action, uint repeatCount)
         {
-            var repeat = new RepeatNode(nodeName, new ActionNode(nodeName, action), repeatCount);
+            var repeat = new RepeatNode<TTime, TContext>(nodeName, new ActionNode<TTime, TContext>(nodeName, action), repeatCount);
             parentNodeStack.Peek().AddChild(repeat);
             return this;
         }
@@ -88,9 +88,9 @@ namespace AYLib.BehaviourTree
         /// <param name="nodeName">User friendly name of the node</param>
         /// <param name="action">The action the node will perform (given elapsedTime and dataContext)</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Succeed(string nodeName, Func<double, object, BehaviourReturnCode> action)
+        public BehaviourTreeBuilder<TTime, TContext> Succeed(string nodeName, Func<TTime, TContext, BehaviourReturnCode> action)
         {
-            var succeed = new SucceedNode(nodeName, new ActionNode(nodeName, action));
+            var succeed = new SucceedNode<TTime, TContext>(nodeName, new ActionNode<TTime, TContext>(nodeName, action));
             parentNodeStack.Peek().AddChild(succeed);
             return this;
         }
@@ -102,9 +102,9 @@ namespace AYLib.BehaviourTree
         /// <param name="condition">The condition action the node will check (given elapsedTime and dataContext)</param>
         /// <param name="action">The action the node will perform (given elapsedTime and dataContext)</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder While(string nodeName, Func<double, object, BehaviourReturnCode> condition, Func<double, object, BehaviourReturnCode> action)
+        public BehaviourTreeBuilder<TTime, TContext> While(string nodeName, Func<TTime, TContext, BehaviourReturnCode> condition, Func<TTime, TContext, BehaviourReturnCode> action)
         {
-            var succeed = new WhileNode(nodeName, new ActionNode(nodeName, condition), new ActionNode(nodeName, action));
+            var succeed = new WhileNode<TTime, TContext>(nodeName, new ActionNode<TTime, TContext>(nodeName, condition), new ActionNode<TTime, TContext>(nodeName, action));
             parentNodeStack.Peek().AddChild(succeed);
             return this;
         }
@@ -115,9 +115,9 @@ namespace AYLib.BehaviourTree
         /// <param name="nodeName">User friendly name of the node</param>
         /// <param name="ticks">The time to wait</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Wait(string nodeName, long ticks)
+        public BehaviourTreeBuilder<TTime, TContext> Wait(string nodeName, long ticks)
         {
-            var waitNode = new WaitNode(nodeName, ticks);
+            var waitNode = new WaitNode<TTime, TContext>(nodeName, ticks);
             parentNodeStack.Peek().AddChild(waitNode);
             return this;
         }
@@ -127,9 +127,9 @@ namespace AYLib.BehaviourTree
         /// </summary>
         /// <param name="nodeName">User friendly name of the node</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Selector(string nodeName)
+        public BehaviourTreeBuilder<TTime, TContext> Selector(string nodeName)
         {
-            var node = new SelectorNode(nodeName);
+            var node = new SelectorNode<TTime, TContext>(nodeName);
             parentNodeStack.Push(node);
             return this;
         }
@@ -139,9 +139,9 @@ namespace AYLib.BehaviourTree
         /// </summary>
         /// <param name="nodeName">User friendly name of the node</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Sequence(string nodeName)
+        public BehaviourTreeBuilder<TTime, TContext> Sequence(string nodeName)
         {
-            var node = new SequenceNode(nodeName);
+            var node = new SequenceNode<TTime, TContext>(nodeName);
             parentNodeStack.Push(node);
             return this;
         }
@@ -151,9 +151,9 @@ namespace AYLib.BehaviourTree
         /// </summary>
         /// <param name="nodeName">User friendly name of the node</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Parallel(string nodeName)
+        public BehaviourTreeBuilder<TTime, TContext> Parallel(string nodeName)
         {
-            var node = new ParallelNode(nodeName);
+            var node = new ParallelNode<TTime, TContext>(nodeName);
             parentNodeStack.Push(node);
             return this;
         }
@@ -163,9 +163,9 @@ namespace AYLib.BehaviourTree
         /// </summary>
         /// <param name="nodeName">User friendly name of the node</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Race(string nodeName)
+        public BehaviourTreeBuilder<TTime, TContext> Race(string nodeName)
         {
-            var node = new RaceNode(nodeName);
+            var node = new RaceNode<TTime, TContext>(nodeName);
             parentNodeStack.Push(node);
             return this;
         }
@@ -175,9 +175,9 @@ namespace AYLib.BehaviourTree
         /// </summary>
         /// <param name="nodeName">User friendly name of the node</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Random(string nodeName)
+        public BehaviourTreeBuilder<TTime, TContext> Random(string nodeName)
         {
-            var node = new RandomNode(nodeName);
+            var node = new RandomNode<TTime, TContext>(nodeName);
             parentNodeStack.Push(node);
             return this;
         }
@@ -187,9 +187,9 @@ namespace AYLib.BehaviourTree
         /// </summary>
         /// <param name="subTree">The pre-built subtree that will be attached to the current node</param>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder Splice(IBehaviourTreeNode subTree)
+        public BehaviourTreeBuilder<TTime, TContext> Splice(IBehaviourTreeNode<TTime, TContext> subTree)
         {
-            parentNodeStack.Peek().AddChild(subTree as BehaviourNode);
+            parentNodeStack.Peek().AddChild(subTree as BehaviourNode<TTime, TContext>);
             return this;
         }
 
@@ -197,7 +197,7 @@ namespace AYLib.BehaviourTree
         /// Validates the structure of the current tree, and returns an interface to interact with.
         /// </summary>
         /// <returns>Current tree builder object</returns>
-        public IBehaviourTreeNode Build()
+        public IBehaviourTreeNode<TTime, TContext> Build()
         {
             if (parentNodeStack.Count > 1)
                 throw new ApplicationException("Sequence type nodes must be closed with and End().");
@@ -210,11 +210,11 @@ namespace AYLib.BehaviourTree
         /// Closes a non-leaf node of the tree.
         /// </summary>
         /// <returns>Current tree builder object</returns>
-        public BehaviourTreeBuilder End()
+        public BehaviourTreeBuilder<TTime, TContext> End()
         {
             var node = parentNodeStack.Pop();
-            if (!(node is BehaviourTree))
-                parentNodeStack.Peek().AddChild(node as BehaviourNode);
+            if (!(node is BehaviourTree<TTime, TContext>))
+                parentNodeStack.Peek().AddChild(node as BehaviourNode<TTime, TContext>);
             return this;
         }
     }

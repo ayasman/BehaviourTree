@@ -6,7 +6,7 @@ namespace BehaviourTreeTests
 {
     public class BehaviourTreeBuilderTests
     {
-        BehaviourTreeBuilder behaviourTreeNode = new BehaviourTreeBuilder("Tree");
+        BehaviourTreeBuilder<long, object> behaviourTreeNode = new BehaviourTreeBuilder<long, object>("Tree");
 
         [Fact]
         public void TestNoChildrenCreated()
@@ -30,7 +30,7 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<ActionNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<ActionNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Success, tree.Visit(1, null));
         }
 
@@ -42,7 +42,7 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<InverterNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<InverterNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Failure, tree.Visit(1, null));
         }
 
@@ -54,7 +54,7 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<RepeatNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<RepeatNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Success, tree.Visit(1, null));
         }
 
@@ -68,7 +68,7 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<ParallelNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<ParallelNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Success, tree.Visit(1, null));
         }
 
@@ -82,7 +82,7 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<RaceNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<RaceNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Success, tree.Visit(1, null));
         }
 
@@ -96,7 +96,7 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<RandomNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<RandomNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Success, tree.Visit(1, null));
         }
 
@@ -111,7 +111,7 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<SelectorNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<SelectorNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Success, tree.Visit(1, null));
         }
 
@@ -126,7 +126,7 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<SequenceNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<SequenceNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Success, tree.Visit(1, null));
         }
 
@@ -138,14 +138,14 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<SucceedNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<SucceedNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Success, tree.Visit(1, null));
         }
 
         [Fact]
         public void TestActionSplice()
         {
-            BehaviourTreeBuilder secondTree = new BehaviourTreeBuilder("Tree");
+            BehaviourTreeBuilder<long, object> secondTree = new BehaviourTreeBuilder<long, object>("Tree");
             var t2 = secondTree
                 .Action("Action", (x, y) => BehaviourReturnCode.Failure)
                 .Build();
@@ -155,8 +155,8 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<ActionNode>(((BehaviourTree)t2).ChildNode);
-            Assert.IsType<BehaviourTree>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<ActionNode<long, object>>(((BehaviourTree<long, object>)t2).ChildNode);
+            Assert.IsType<BehaviourTree<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Failure, tree.Visit(1, null));
         }
 
@@ -168,7 +168,7 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<WhileNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<WhileNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Failure, tree.Visit(1, null));
         }
 
@@ -180,7 +180,7 @@ namespace BehaviourTreeTests
                 .End()
                 .Build();
 
-            Assert.IsType<WaitNode>(((BehaviourTree)tree).ChildNode);
+            Assert.IsType<WaitNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Running, tree.Visit(1, null));
         }
     }

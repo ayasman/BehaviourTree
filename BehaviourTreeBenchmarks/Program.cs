@@ -15,7 +15,7 @@ namespace BehaviourTreeBenchmarks
         [Benchmark]
         public void DoWork1()
         {
-            BehaviourTreeBuilder builder = new BehaviourTreeBuilder("Main");
+            BehaviourTreeBuilder<long, object> builder = new BehaviourTreeBuilder<long, object>("Main");
             var retVal = builder
                     .Sequence("Node 1")
                         .Selector("Node 2")
@@ -39,11 +39,11 @@ namespace BehaviourTreeBenchmarks
         [Benchmark]
         public void DoWork2()
         {
-            List<IBehaviourTreeNode> nodes = new List<IBehaviourTreeNode>();
+            List<IBehaviourTreeNode<long, object>> nodes = new List<IBehaviourTreeNode<long, object>>();
 
             for (int i = 0; i < 100000; i++)
             {
-                BehaviourTreeBuilder builder = new BehaviourTreeBuilder("Main");
+                BehaviourTreeBuilder<long, object> builder = new BehaviourTreeBuilder<long, object>("Main");
                 var retVal = builder
                         .Sequence("Node 1")
                             .Selector("Node 2")

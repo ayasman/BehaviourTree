@@ -5,7 +5,7 @@ namespace AYLib.BehaviourTree
     /// <summary>
     /// Waits a given amount of time (ticks), then returns a success.
     /// </summary>
-    internal class WaitNode : BehaviourNode
+    internal class WaitNode<TTime, TContext> : BehaviourNode<TTime, TContext>
     {
         private long elapsedTimeToWait;
         private long currentTickCounter;
@@ -28,9 +28,17 @@ namespace AYLib.BehaviourTree
         /// <param name="elapsedTime">The time since last visit</param>
         /// <param name="dataContext">The data context to run against</param>
         /// <returns>Completion state of the node</returns>
-        public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
+        public override BehaviourReturnCode Visit(TTime elapsedTime, TContext dataContext)
         {
-            currentTickCounter -= elapsedTime;
+            try
+            {
+                currentTickCounter -= Convert.ToInt64(elapsedTime);
+            }
+            catch 
+            {
+                return Failed();
+            }
+
             if (currentTickCounter <= 0)
             {
                 currentTickCounter = elapsedTimeToWait;

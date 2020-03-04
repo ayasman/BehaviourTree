@@ -2,11 +2,11 @@
 
 namespace AYLib.BehaviourTree
 {
-    internal class WhileNode : BehaviourNode
+    internal class WhileNode<TTime, TContext> : BehaviourNode<TTime, TContext>
     {
-        private readonly BehaviourNode conditionChildNode;
-        private readonly BehaviourNode actionChildNode;
-        private BehaviourNode runningNode = null;
+        private readonly BehaviourNode<TTime, TContext> conditionChildNode;
+        private readonly BehaviourNode<TTime, TContext> actionChildNode;
+        private BehaviourNode<TTime, TContext> runningNode = null;
         private bool actionSuccess = false;
 
         /// <summary>
@@ -15,7 +15,7 @@ namespace AYLib.BehaviourTree
         /// <param name="nodeName">User friendly name of the node</param>
         /// <param name="conditionNode">The condition node that is checked to perform loop</param>
         /// <param name="childNode">The action node that is visited</param>
-        public WhileNode(string nodeName, ActionNode conditionNode, ActionNode childNode)
+        public WhileNode(string nodeName, ActionNode<TTime, TContext> conditionNode, ActionNode<TTime, TContext> childNode)
             : base(nodeName)
         {
             conditionChildNode = conditionNode;
@@ -28,7 +28,7 @@ namespace AYLib.BehaviourTree
         /// <param name="elapsedTime">The time since last visit</param>
         /// <param name="dataContext">The data context to run against</param>
         /// <returns>Completion state of the node</returns>
-        public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
+        public override BehaviourReturnCode Visit(TTime elapsedTime, TContext dataContext)
         {
             if (runningNode == null)
                 actionSuccess = false;

@@ -8,10 +8,10 @@ namespace AYLib.BehaviourTree
     /// Visits all of the children during every call to the Visit method. Returns a failure result when the first one
     /// fails, a success result if they all succeed, or running if any are still working.
     /// </summary>
-    internal class ParallelNode : BehaviourNode, IBehaviourTreeParentNode
+    internal class ParallelNode<TTime, TContext> : BehaviourNode<TTime, TContext>, IBehaviourTreeParentNode<TTime, TContext>
     {
-        private readonly List<BehaviourNode> childNodes = null;
-        private readonly List<BehaviourNode> runningNodes = new List<BehaviourNode>();
+        private readonly List<BehaviourNode<TTime, TContext>> childNodes = null;
+        private readonly List<BehaviourNode<TTime, TContext>> runningNodes = new List<BehaviourNode<TTime, TContext>>();
 
         /// <summary>
         /// Constructor.
@@ -20,7 +20,7 @@ namespace AYLib.BehaviourTree
         public ParallelNode(string nodeName)
             : base(nodeName)
         {
-            childNodes = new List<BehaviourNode>();
+            childNodes = new List<BehaviourNode<TTime, TContext>>();
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace AYLib.BehaviourTree
         /// </summary>
         /// <param name="nodeName">User friendly name of the node</param>
         /// <param name="childNodes">The child nodes to initialize with</param>
-        public ParallelNode(string nodeName, List<BehaviourNode> childNodes)
+        public ParallelNode(string nodeName, List<BehaviourNode<TTime, TContext>> childNodes)
             : base(nodeName)
         {
             this.childNodes = childNodes;
@@ -40,7 +40,7 @@ namespace AYLib.BehaviourTree
         /// <param name="elapsedTime">The time since last visit</param>
         /// <param name="dataContext">The data context to run against</param>
         /// <returns>Completion state of the node</returns>
-        public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
+        public override BehaviourReturnCode Visit(TTime elapsedTime, TContext dataContext)
         {
             bool anyFailed = false;
 
@@ -74,7 +74,7 @@ namespace AYLib.BehaviourTree
         /// Adds child node.
         /// </summary>
         /// <param name="childNode">The new child node</param>
-        public void AddChild(BehaviourNode childNode)
+        public void AddChild(BehaviourNode<TTime, TContext> childNode)
         {
             childNodes.Add(childNode);
         }

@@ -5,7 +5,7 @@ namespace AYLib.BehaviourTree
     /// <summary>
     /// Base class for all of the nodes in a behaviour tree.
     /// </summary>
-    internal abstract class BehaviourNode : IBehaviourTreeNode
+    internal abstract class BehaviourNode<TTime, TContext> : IBehaviourTreeNode<TTime, TContext>
     {
         /// <summary>
         /// Constructor.
@@ -32,7 +32,7 @@ namespace AYLib.BehaviourTree
         /// <param name="elapsedTime">The time since last visit</param>
         /// <param name="dataContext">The data context to run against</param>
         /// <returns>Completion state of the node</returns>
-        public abstract BehaviourReturnCode Visit(long elapsedTime, object dataContext);
+        public abstract BehaviourReturnCode Visit(TTime elapsedTime, TContext dataContext);
 
         /// <summary>
         /// Gets the state data of the node.

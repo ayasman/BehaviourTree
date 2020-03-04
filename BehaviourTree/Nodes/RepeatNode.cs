@@ -6,9 +6,9 @@ namespace AYLib.BehaviourTree
     /// Repeats the an action a given number of times. Succeeds if all calls to the action succeed, and fails
     /// if any call fails. Returns running otherwise. An error is returned if the count is in an invalid state.
     /// </summary>
-    internal class RepeatNode : BehaviourNode
+    internal class RepeatNode<TTime, TContext> : BehaviourNode<TTime, TContext>
     {
-        private readonly ActionNode childNode;
+        private readonly ActionNode<TTime, TContext> childNode;
         private readonly uint repeatCount;
         private uint currentCount = 0;
 
@@ -18,7 +18,7 @@ namespace AYLib.BehaviourTree
         /// <param name="nodeName">User friendly name of the node</param>
         /// <param name="childAction">The action to take when visiting the node</param>
         /// <param name="repeatCount">The number of times to repeat the action</param>
-        public RepeatNode(string nodeName, ActionNode childAction, uint repeatCount)
+        public RepeatNode(string nodeName, ActionNode<TTime, TContext> childAction, uint repeatCount)
             : base(nodeName)
         {
             this.childNode = childAction;
@@ -31,7 +31,7 @@ namespace AYLib.BehaviourTree
         /// <param name="elapsedTime">The time since last visit</param>
         /// <param name="dataContext">The data context to run against</param>
         /// <returns>Completion state of the node</returns>
-        public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
+        public override BehaviourReturnCode Visit(TTime elapsedTime, TContext dataContext)
         {
             if (currentCount > 0)
             {

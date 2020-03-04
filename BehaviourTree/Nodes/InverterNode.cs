@@ -10,16 +10,16 @@ namespace AYLib.BehaviourTree
     /// Error -> Error
     /// Running -> Running
     /// </summary>
-    internal class InverterNode : BehaviourNode
+    internal class InverterNode<TTime, TContext> : BehaviourNode<TTime, TContext>
     {
-        private readonly ActionNode childNode;
+        private readonly ActionNode<TTime, TContext> childNode;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="nodeName">User friendly name of the node</param>
         /// <param name="childNode">The action node that is visited and inverted</param>
-        public InverterNode(string nodeName, ActionNode childNode)
+        public InverterNode(string nodeName, ActionNode<TTime, TContext> childNode)
             : base(nodeName)
         {
             this.childNode = childNode;
@@ -31,7 +31,7 @@ namespace AYLib.BehaviourTree
         /// <param name="elapsedTime">The time since last visit</param>
         /// <param name="dataContext">The data context to run against</param>
         /// <returns>Completion state of the node</returns>
-        public override BehaviourReturnCode Visit(long elapsedTime, object dataContext)
+        public override BehaviourReturnCode Visit(TTime elapsedTime, TContext dataContext)
         {
             var status = childNode.Visit(elapsedTime, dataContext);
             switch (status)

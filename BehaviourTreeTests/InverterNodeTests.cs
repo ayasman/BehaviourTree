@@ -9,8 +9,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestSuccess()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Success);
-            InverterNode inverter = new InverterNode("Invert", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Success);
+            InverterNode<long, object> inverter = new InverterNode<long, object>("Invert", testNode);
 
             Assert.Equal(BehaviourReturnCode.Failure, inverter.Visit(1, null));
             Assert.Equal(BehaviourReturnCode.Failure, inverter.CurrentState);
@@ -19,8 +19,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestFailure()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Failure);
-            InverterNode inverter = new InverterNode("Invert", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Failure);
+            InverterNode<long, object> inverter = new InverterNode<long, object>("Invert", testNode);
 
             Assert.Equal(BehaviourReturnCode.Success, inverter.Visit(1, null));
             Assert.Equal(BehaviourReturnCode.Success, inverter.CurrentState);
@@ -29,8 +29,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestRunning()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Running);
-            InverterNode inverter = new InverterNode("Invert", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Running);
+            InverterNode<long, object> inverter = new InverterNode<long, object>("Invert", testNode);
 
             Assert.Equal(BehaviourReturnCode.Running, inverter.Visit(1, null));
             Assert.Equal(BehaviourReturnCode.Running, inverter.CurrentState);
@@ -39,8 +39,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestError()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Error);
-            InverterNode inverter = new InverterNode("Invert", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Error);
+            InverterNode<long, object> inverter = new InverterNode<long, object>("Invert", testNode);
 
             Assert.Equal(BehaviourReturnCode.Error, inverter.Visit(1, null));
             Assert.Equal(BehaviourReturnCode.Error, inverter.CurrentState);
@@ -49,8 +49,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestGetState()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Failure);
-            InverterNode inverter = new InverterNode("Invert", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Failure);
+            InverterNode<long, object> inverter = new InverterNode<long, object>("Invert", testNode);
             inverter.Visit(1, null);
 
             var state = inverter.GetState();
@@ -64,8 +64,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestStateReset()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Failure);
-            InverterNode inverter = new InverterNode("Invert", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Failure);
+            InverterNode<long, object> inverter = new InverterNode<long, object>("Invert", testNode);
             inverter.Visit(1, null);
 
             inverter.ResetState();

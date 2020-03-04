@@ -9,20 +9,20 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestAllSuccess()
         {
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
                 {
                     return BehaviourReturnCode.Success;
                 });
-            ActionNode successNode2 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode2 = new ActionNode<long, object>("SuccessNode", (t, o) =>
                 {
                     return BehaviourReturnCode.Success;
                 });
-            ActionNode successNode3 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode3 = new ActionNode<long, object>("SuccessNode", (t, o) =>
                 {
                     return BehaviourReturnCode.Success;
                 });
 
-            ParallelNode sequence = new ParallelNode("ParallelNode", new System.Collections.Generic.List<BehaviourNode>() { successNode1, successNode2, successNode3 });
+            ParallelNode<long, object> sequence = new ParallelNode<long, object>("ParallelNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode1, successNode2, successNode3 });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Success, sequence.CurrentState);
@@ -32,20 +32,20 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestOneRunning()
         {
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode successNode2 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode2 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 return BehaviourReturnCode.Running;
             });
 
-            ParallelNode sequence = new ParallelNode("ParallelNode", new System.Collections.Generic.List<BehaviourNode>() { successNode1, successNode2, runningNode });
+            ParallelNode<long, object> sequence = new ParallelNode<long, object>("ParallelNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode1, successNode2, runningNode });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -57,15 +57,15 @@ namespace BehaviourTreeTests
         {
             int visitCount = 0;
 
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode successNode2 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode2 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 visitCount++;
                 if (visitCount == 2)
@@ -73,7 +73,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Running;
             });
 
-            ParallelNode sequence = new ParallelNode("ParallelNode", new System.Collections.Generic.List<BehaviourNode>() { successNode1, successNode2, runningNode });
+            ParallelNode<long, object> sequence = new ParallelNode<long, object>("ParallelNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode1, successNode2, runningNode });
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -89,15 +89,15 @@ namespace BehaviourTreeTests
         {
             int visitCount = 0;
 
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode successNode2 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode2 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 visitCount++;
                 if (visitCount == 2)
@@ -105,7 +105,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Running;
             });
 
-            ParallelNode sequence = new ParallelNode("ParallelNode", new System.Collections.Generic.List<BehaviourNode>() { successNode1, successNode2, runningNode });
+            ParallelNode<long, object> sequence = new ParallelNode<long, object>("ParallelNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode1, successNode2, runningNode });
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -119,21 +119,21 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestFailure()
         {
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode failNode = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode successNode3 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode3 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
 
                 return BehaviourReturnCode.Success;
             });
 
-            ParallelNode sequence = new ParallelNode("ParallelNode", new System.Collections.Generic.List<BehaviourNode>() { successNode1, failNode, successNode3 });
+            ParallelNode<long, object> sequence = new ParallelNode<long, object>("ParallelNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode1, failNode, successNode3 });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Failure, sequence.CurrentState);
@@ -144,15 +144,15 @@ namespace BehaviourTreeTests
         public void TestFailureWithRunning()
         {
             int visitCount = 0;
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode failNode = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 visitCount++;
                 if (visitCount == 2)
@@ -160,7 +160,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Running;
             });
 
-            ParallelNode sequence = new ParallelNode("ParallelNode", new System.Collections.Generic.List<BehaviourNode>() { successNode1, failNode, runningNode });
+            ParallelNode<long, object> sequence = new ParallelNode<long, object>("ParallelNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode1, failNode, runningNode });
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Failure, sequence.CurrentState);
@@ -175,13 +175,13 @@ namespace BehaviourTreeTests
         public void TestAddChild()
         {
             bool visited = false;
-            ActionNode successNode = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 visited = true;
                 return BehaviourReturnCode.Success;
             });
 
-            ParallelNode sequence = new ParallelNode("ParallelNode");
+            ParallelNode<long, object> sequence = new ParallelNode<long, object>("ParallelNode");
             sequence.AddChild(successNode);
 
             var status = sequence.Visit(1, null);
@@ -193,20 +193,20 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestGetState()
         {
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode successNode2 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode2 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode successNode3 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode3 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
 
-            ParallelNode sequence = new ParallelNode("ParallelNode", new System.Collections.Generic.List<BehaviourNode>() { successNode1, successNode2, successNode3 });
+            ParallelNode<long, object> sequence = new ParallelNode<long, object>("ParallelNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode1, successNode2, successNode3 });
             var status = sequence.Visit(1, null);
 
             var state = sequence.GetState();
