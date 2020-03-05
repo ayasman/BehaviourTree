@@ -34,5 +34,25 @@ namespace AYLib.BehaviourTree
             NodeName = nodeName;
             CurrentState = state;
         }
+
+        /// <summary>
+        /// Checks if one state is the same as the other (same tree and results).
+        /// </summary>
+        /// <param name="otherState">The other state object to check.</param>
+        /// <returns>true if they are the same, otherwise false.</returns>
+        public bool StateEqual(IBehaviourTreeState otherState)
+        {
+            if (this.NodeName != otherState.NodeName ||
+                this.CurrentState != otherState.CurrentState ||
+                this.Children.Count != otherState.Children.Count)
+                return false;
+
+            for(int i=0; i<this.Children.Count; i++)
+            {
+                if (!this.Children[i].StateEqual(otherState.Children[i]))
+                    return false;
+            }
+            return true;
+        }
     }
 }

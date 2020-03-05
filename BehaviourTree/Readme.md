@@ -7,7 +7,7 @@ A behaviour tree is built using the fluent API against a BehaviourTreeBuilder ob
 This behaviour tree is re-entrant. Until the state is reset to *Ready* (will happen automatically when the root node reads something other than *Running*), it will navigate to the last known Running node, and attempt to complete it every time the Visit method is called. 
 
 ```C#
-BehaviourTreeBuilder builder = new BehaviourTreeBuilder("Main");
+BehaviourTreeBuilder<long, object> builder = new BehaviourTreeBuilder<long, object>("Main");
 var treeRoot = builder
         .Sequence("Node 1")
             .Selector("Node 2")
@@ -144,4 +144,18 @@ If the action node returns *Failure* at any time, or is never visited at all, th
 		// Action node
 		BehaviourReturnCode.Failure;
 	});
+```
+
+### Condition Node
+Wraps around an action node, returning *Success* if the action function returns True, or *Failure* if it returns false.
+
+```C#
+.Condition("True", (elapsedTime, dataContext) => true)
+```
+
+## Current Tree State
+The current state of the behaviour tree can be generated for use in debugging and diagnostics. Calling the GetState method on the behaviour tree will generate an object with the names of the nodes, the current running state of the node, and the state of the child nodes.
+
+```C#
+IBehaviourTreeState currentState = treeRoot.GetState();
 ```

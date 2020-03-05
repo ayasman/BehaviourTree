@@ -9,8 +9,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestConstuctorWithAction()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Success);
-            BehaviourTree testRoot = new BehaviourTree("Root", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Success);
+            BehaviourTree<long, object> testRoot = new BehaviourTree<long, object>("Root", testNode);
             var state = testRoot.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Success, state);
@@ -20,15 +20,15 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestConstuctorFail()
         {
-            BehaviourTree testNode = new BehaviourTree("Root");
+            BehaviourTree<long, object> testNode = new BehaviourTree<long, object>("Root");
             Assert.Throws<ApplicationException>(() => testNode.Visit(1, null));
         }
 
         [Fact]
         public void TestGetState()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Success);
-            BehaviourTree testRoot = new BehaviourTree("Root", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Success);
+            BehaviourTree<long, object> testRoot = new BehaviourTree<long, object>("Root", testNode);
             testRoot.Visit(1, null);
 
             var state = testRoot.GetState();

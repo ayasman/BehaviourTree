@@ -9,7 +9,7 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestSuccess()
         {
-            WaitNode waitNode = new WaitNode("Wait", 100);
+            WaitNode<long, object> waitNode = new WaitNode<long, object>("Wait", 100);
 
             Assert.Equal(BehaviourReturnCode.Ready, waitNode.CurrentState);
 
@@ -20,7 +20,7 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestLongSuccess()
         {
-            WaitNode waitNode = new WaitNode("Wait", 500);
+            WaitNode<long, object> waitNode = new WaitNode<long, object>("Wait", 500);
 
             var state = waitNode.Visit(100, null);
             Assert.Equal(BehaviourReturnCode.Running, state);
@@ -50,7 +50,7 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestGetState()
         {
-            WaitNode waitNode = new WaitNode("Wait", 500);
+            WaitNode<long, object> waitNode = new WaitNode<long, object>("Wait", 500);
             waitNode.Visit(1, null);
 
             var state = waitNode.GetState();
@@ -64,7 +64,7 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestStateReset()
         {
-            WaitNode waitNode = new WaitNode("Wait", 500);
+            WaitNode<long, object> waitNode = new WaitNode<long, object>("Wait", 500);
             waitNode.Visit(1, null);
 
             waitNode.ResetState();

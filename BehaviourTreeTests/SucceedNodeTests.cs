@@ -9,8 +9,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestSuccess()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Success);
-            SucceedNode succeed = new SucceedNode("Succeed", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Success);
+            SucceedNode<long, object> succeed = new SucceedNode<long, object>("Succeed", testNode);
 
             Assert.Equal(BehaviourReturnCode.Success, succeed.Visit(1, null));
             Assert.Equal(BehaviourReturnCode.Success, succeed.CurrentState);
@@ -19,8 +19,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestFailure()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Failure);
-            SucceedNode succeed = new SucceedNode("Succeed", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Failure);
+            SucceedNode<long, object> succeed = new SucceedNode<long, object>("Succeed", testNode);
 
             Assert.Equal(BehaviourReturnCode.Success, succeed.Visit(1, null));
             Assert.Equal(BehaviourReturnCode.Success, succeed.CurrentState);
@@ -29,8 +29,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestRunning()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Running);
-            SucceedNode succeed = new SucceedNode("Succeed", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Running);
+            SucceedNode<long, object> succeed = new SucceedNode<long, object>("Succeed", testNode);
 
             Assert.Equal(BehaviourReturnCode.Running, succeed.Visit(1, null));
             Assert.Equal(BehaviourReturnCode.Running, succeed.CurrentState);
@@ -39,8 +39,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestError()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Error);
-            SucceedNode succeed = new SucceedNode("Succeed", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Error);
+            SucceedNode<long, object> succeed = new SucceedNode<long, object>("Succeed", testNode);
 
             Assert.Equal(BehaviourReturnCode.Error, succeed.Visit(1, null));
             Assert.Equal(BehaviourReturnCode.Error, succeed.CurrentState);
@@ -49,8 +49,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestGetState()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Failure);
-            SucceedNode succeed = new SucceedNode("Succeed", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Failure);
+            SucceedNode<long, object> succeed = new SucceedNode<long, object>("Succeed", testNode);
             succeed.Visit(1, null);
 
             var state = succeed.GetState();
@@ -64,8 +64,8 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestStateReset()
         {
-            ActionNode testNode = new ActionNode("TestNode", (t, o) => BehaviourReturnCode.Failure);
-            SucceedNode succeed = new SucceedNode("Succeed", testNode);
+            ActionNode<long, object> testNode = new ActionNode<long, object>("TestNode", (t, o) => BehaviourReturnCode.Failure);
+            SucceedNode<long, object> succeed = new SucceedNode<long, object>("Succeed", testNode);
             succeed.Visit(1, null);
 
             succeed.ResetState();

@@ -183,6 +183,25 @@ namespace AYLib.BehaviourTree
         }
 
         /// <summary>
+        /// Wrapper around an action node that maps a true/false return to a return code.
+        /// </summary>
+        /// <param name="nodeName">User friendly name of the node</param>
+        /// <param name="action">The function that return true or false</param>
+        /// <returns>Current tree builder object</returns>
+        public BehaviourTreeBuilder<TTime, TContext> Condition(string nodeName, Func<TTime, TContext, bool> action)
+        {
+            return this.Action(nodeName, (x, y) =>
+                {
+                    var resultCode = action?.Invoke(x, y);
+                    if (resultCode == true)
+                        return BehaviourReturnCode.Success;
+                    else if (resultCode == false)
+                        return BehaviourReturnCode.Failure;
+                    return BehaviourReturnCode.Error;
+                });
+        }
+
+        /// <summary>
         /// Splices a given tree into the current node.
         /// </summary>
         /// <param name="subTree">The pre-built subtree that will be attached to the current node</param>

@@ -23,5 +23,12 @@ namespace AYLib.BehaviourTree
         /// List of child nodes.
         /// </summary>
         List<IBehaviourTreeState> Children { get; }
+
+        /// <summary>
+        /// Checks if one state is the same as the other (same tree and results).
+        /// </summary>
+        /// <param name="otherState">The other state object to check.</param>
+        /// <returns>true if they are the same, otherwise false.</returns>
+        bool StateEqual(IBehaviourTreeState otherState);
     }
 }

@@ -12,20 +12,20 @@ namespace BehaviourTreeTests
             int condCounter = 0;
             int actCounter = 0;
 
-            ActionNode conditionNode = new ActionNode("Condition", (t, o) =>
+            ActionNode<long, object> conditionNode = new ActionNode<long, object>("Condition", (t, o) =>
             {
                 condCounter++;
                 if (condCounter > 1)
                     return BehaviourReturnCode.Failure;
                 return BehaviourReturnCode.Success;
             });
-            ActionNode actionNode = new ActionNode("Action", (t, o) =>
+            ActionNode<long, object> actionNode = new ActionNode<long, object>("Action", (t, o) =>
             {
                 actCounter++;
                 return BehaviourReturnCode.Success;
             });
 
-            WhileNode testNode = new WhileNode("WhileNode", conditionNode, actionNode);
+            WhileNode<long, object> testNode = new WhileNode<long, object>("WhileNode", conditionNode, actionNode);
             var status = testNode.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Success, status);
@@ -40,20 +40,20 @@ namespace BehaviourTreeTests
             int condCounter = 0;
             int actCounter = 0;
 
-            ActionNode conditionNode = new ActionNode("Condition", (t, o) =>
+            ActionNode<long, object> conditionNode = new ActionNode<long, object>("Condition", (t, o) =>
             {
                 condCounter++;
                 if (condCounter > 3)
                     return BehaviourReturnCode.Failure;
                 return BehaviourReturnCode.Success;
             });
-            ActionNode actionNode = new ActionNode("Action", (t, o) =>
+            ActionNode<long, object> actionNode = new ActionNode<long, object>("Action", (t, o) =>
             {
                 actCounter++;
                 return BehaviourReturnCode.Success;
             });
 
-            WhileNode testNode = new WhileNode("WhileNode", conditionNode, actionNode);
+            WhileNode<long, object> testNode = new WhileNode<long, object>("WhileNode", conditionNode, actionNode);
             var status = testNode.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Success, status);
@@ -68,18 +68,18 @@ namespace BehaviourTreeTests
             int condCounter = 0;
             int actCounter = 0;
 
-            ActionNode conditionNode = new ActionNode("Condition", (t, o) =>
+            ActionNode<long, object> conditionNode = new ActionNode<long, object>("Condition", (t, o) =>
             {
                 condCounter++;
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode actionNode = new ActionNode("Action", (t, o) =>
+            ActionNode<long, object> actionNode = new ActionNode<long, object>("Action", (t, o) =>
             {
                 actCounter++;
                 return BehaviourReturnCode.Success;
             });
 
-            WhileNode testNode = new WhileNode("WhileNode", conditionNode, actionNode);
+            WhileNode<long, object> testNode = new WhileNode<long, object>("WhileNode", conditionNode, actionNode);
             var status = testNode.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Failure, status);
@@ -94,18 +94,18 @@ namespace BehaviourTreeTests
             int condCounter = 0;
             int actCounter = 0;
 
-            ActionNode conditionNode = new ActionNode("Condition", (t, o) =>
+            ActionNode<long, object> conditionNode = new ActionNode<long, object>("Condition", (t, o) =>
             {
                 condCounter++;
                 return BehaviourReturnCode.Success;
             });
-            ActionNode actionNode = new ActionNode("Action", (t, o) =>
+            ActionNode<long, object> actionNode = new ActionNode<long, object>("Action", (t, o) =>
             {
                 actCounter++;
                 return BehaviourReturnCode.Failure;
             });
 
-            WhileNode testNode = new WhileNode("WhileNode", conditionNode, actionNode);
+            WhileNode<long, object> testNode = new WhileNode<long, object>("WhileNode", conditionNode, actionNode);
             var status = testNode.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Failure, status);
@@ -120,12 +120,12 @@ namespace BehaviourTreeTests
             int condCounter = 0;
             int actCounter = 0;
 
-            ActionNode conditionNode = new ActionNode("Condition", (t, o) =>
+            ActionNode<long, object> conditionNode = new ActionNode<long, object>("Condition", (t, o) =>
             {
                 condCounter++;
                 return BehaviourReturnCode.Success;
             });
-            ActionNode actionNode = new ActionNode("Action", (t, o) =>
+            ActionNode<long, object> actionNode = new ActionNode<long, object>("Action", (t, o) =>
             {
                 actCounter++;
                 if (actCounter > 1)
@@ -133,7 +133,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Success;
             });
 
-            WhileNode testNode = new WhileNode("WhileNode", conditionNode, actionNode);
+            WhileNode<long, object> testNode = new WhileNode<long, object>("WhileNode", conditionNode, actionNode);
             var status = testNode.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Failure, status);
@@ -148,7 +148,7 @@ namespace BehaviourTreeTests
             int condCounter = 0;
             int actCounter = 0;
 
-            ActionNode conditionNode = new ActionNode("Condition", (t, o) =>
+            ActionNode<long, object> conditionNode = new ActionNode<long, object>("Condition", (t, o) =>
             {
                 condCounter++;
                 if (condCounter == 3 || condCounter == 7)
@@ -157,13 +157,13 @@ namespace BehaviourTreeTests
                     return BehaviourReturnCode.Failure;
                 return BehaviourReturnCode.Running;
             });
-            ActionNode actionNode = new ActionNode("Action", (t, o) =>
+            ActionNode<long, object> actionNode = new ActionNode<long, object>("Action", (t, o) =>
             {
                 actCounter++;
                 return BehaviourReturnCode.Success;
             });
 
-            WhileNode testNode = new WhileNode("WhileNode", conditionNode, actionNode);
+            WhileNode<long, object> testNode = new WhileNode<long, object>("WhileNode", conditionNode, actionNode);
 
             var status = testNode.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, status);
@@ -187,7 +187,7 @@ namespace BehaviourTreeTests
             int condCounter = 0;
             int actCounter = 0;
 
-            ActionNode conditionNode = new ActionNode("Condition", (t, o) =>
+            ActionNode<long, object> conditionNode = new ActionNode<long, object>("Condition", (t, o) =>
             {
                 condCounter++;
                 if (condCounter == 3)
@@ -196,7 +196,7 @@ namespace BehaviourTreeTests
                     return BehaviourReturnCode.Failure;
                 return BehaviourReturnCode.Running;
             });
-            ActionNode actionNode = new ActionNode("Action", (t, o) =>
+            ActionNode<long, object> actionNode = new ActionNode<long, object>("Action", (t, o) =>
             {
                 actCounter++;
                 if (actCounter == 3)
@@ -204,7 +204,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Running;
             });
 
-            WhileNode testNode = new WhileNode("WhileNode", conditionNode, actionNode);
+            WhileNode<long, object> testNode = new WhileNode<long, object>("WhileNode", conditionNode, actionNode);
 
             var status = testNode.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, status);
@@ -227,7 +227,7 @@ namespace BehaviourTreeTests
             int condCounter = 0;
             int actCounter = 0;
 
-            ActionNode conditionNode = new ActionNode("Condition", (t, o) =>
+            ActionNode<long, object> conditionNode = new ActionNode<long, object>("Condition", (t, o) =>
             {
                 condCounter++;
                 if (condCounter == 3 || condCounter == 7)
@@ -236,7 +236,7 @@ namespace BehaviourTreeTests
                     return BehaviourReturnCode.Failure;
                 return BehaviourReturnCode.Running;
             });
-            ActionNode actionNode = new ActionNode("Action", (t, o) =>
+            ActionNode<long, object> actionNode = new ActionNode<long, object>("Action", (t, o) =>
             {
                 actCounter++;
                 if (actCounter == 3)
@@ -244,7 +244,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Running;
             });
 
-            WhileNode testNode = new WhileNode("WhileNode", conditionNode, actionNode);
+            WhileNode<long, object> testNode = new WhileNode<long, object>("WhileNode", conditionNode, actionNode);
 
             var status = testNode.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, status);
@@ -264,9 +264,9 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestGetState()
         {
-            ActionNode conditionNode = new ActionNode("Condition", (t, o) => BehaviourReturnCode.Success);
-            ActionNode actionNode = new ActionNode("Action", (t, o) => BehaviourReturnCode.Failure);
-            WhileNode testNode = new WhileNode("WhileNode", conditionNode, actionNode);
+            ActionNode<long, object> conditionNode = new ActionNode<long, object>("Condition", (t, o) => BehaviourReturnCode.Success);
+            ActionNode<long, object> actionNode = new ActionNode<long, object>("Action", (t, o) => BehaviourReturnCode.Failure);
+            WhileNode<long, object> testNode = new WhileNode<long, object>("WhileNode", conditionNode, actionNode);
             testNode.Visit(1, null);
 
             var state = testNode.GetState();
@@ -280,9 +280,9 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestStateReset()
         {
-            ActionNode conditionNode = new ActionNode("Condition", (t, o) => BehaviourReturnCode.Success);
-            ActionNode actionNode = new ActionNode("Action", (t, o) => BehaviourReturnCode.Failure);
-            WhileNode testNode = new WhileNode("WhileNode", conditionNode, actionNode);
+            ActionNode<long, object> conditionNode = new ActionNode<long, object>("Condition", (t, o) => BehaviourReturnCode.Success);
+            ActionNode<long, object> actionNode = new ActionNode<long, object>("Action", (t, o) => BehaviourReturnCode.Failure);
+            WhileNode<long, object> testNode = new WhileNode<long, object>("WhileNode", conditionNode, actionNode);
             testNode.Visit(1, null);
 
             testNode.ResetState();

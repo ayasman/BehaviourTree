@@ -9,20 +9,20 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestAllSuccess()
         {
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
                 {
                     return BehaviourReturnCode.Success;
                 });
-            ActionNode successNode2 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode2 = new ActionNode<long, object>("SuccessNode", (t, o) =>
                 {
                     return BehaviourReturnCode.Success;
                 });
-            ActionNode successNode3 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode3 = new ActionNode<long, object>("SuccessNode", (t, o) =>
                 {
                     return BehaviourReturnCode.Success;
                 });
 
-            RaceNode sequence = new RaceNode("RaceNode", new System.Collections.Generic.List<BehaviourNode>() { successNode1, successNode2, successNode3 });
+            RaceNode<long, object> sequence = new RaceNode<long, object>("RaceNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode1, successNode2, successNode3 });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Success, sequence.CurrentState);
@@ -32,20 +32,20 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestOneSuccess()
         {
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode failNode1 = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode failNode2 = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
 
-            RaceNode sequence = new RaceNode("RaceNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, successNode1, failNode2 });
+            RaceNode<long, object> sequence = new RaceNode<long, object>("RaceNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, successNode1, failNode2 });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Success, sequence.CurrentState);
@@ -55,20 +55,20 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestNoSuccess()
         {
-            ActionNode failNode1 = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode failNode2 = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode failNode3 = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode3 = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
 
-            RaceNode sequence = new RaceNode("RaceNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, failNode2, failNode3 });
+            RaceNode<long, object> sequence = new RaceNode<long, object>("RaceNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, failNode2, failNode3 });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Failure, sequence.CurrentState);
@@ -80,15 +80,15 @@ namespace BehaviourTreeTests
         {
             int visitCount = 0;
 
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode successNode2 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode2 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 visitCount++;
                 if (visitCount == 2)
@@ -96,7 +96,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Running;
             });
 
-            RaceNode sequence = new RaceNode("RaceNode", new System.Collections.Generic.List<BehaviourNode>() { successNode1, successNode2, runningNode });
+            RaceNode<long, object> sequence = new RaceNode<long, object>("RaceNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode1, successNode2, runningNode });
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Success, sequence.CurrentState);
@@ -112,15 +112,15 @@ namespace BehaviourTreeTests
         {
             int visitCount = 0;
 
-            ActionNode failNode1 = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode failNode2 = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 visitCount++;
                 if (visitCount == 2)
@@ -128,7 +128,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Running;
             });
 
-            RaceNode sequence = new RaceNode("RaceNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, failNode2, runningNode });
+            RaceNode<long, object> sequence = new RaceNode<long, object>("RaceNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, failNode2, runningNode });
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -144,15 +144,15 @@ namespace BehaviourTreeTests
         {
             int visitCount = 0;
 
-            ActionNode failNode1 = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode failNode2 = new ActionNode("FailNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 visitCount++;
                 if (visitCount == 2)
@@ -160,7 +160,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Running;
             });
 
-            RaceNode sequence = new RaceNode("RaceNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, failNode2, runningNode });
+            RaceNode<long, object> sequence = new RaceNode<long, object>("RaceNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, failNode2, runningNode });
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -175,13 +175,13 @@ namespace BehaviourTreeTests
         public void TestAddChild()
         {
             bool visited = false;
-            ActionNode successNode = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 visited = true;
                 return BehaviourReturnCode.Success;
             });
 
-            RaceNode sequence = new RaceNode("RaceNode");
+            RaceNode<long, object> sequence = new RaceNode<long, object>("RaceNode");
             sequence.AddChild(successNode);
 
             var status = sequence.Visit(1, null);
@@ -193,20 +193,20 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestGetState()
         {
-            ActionNode successNode1 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode1 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode successNode2 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode2 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
-            ActionNode successNode3 = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode3 = new ActionNode<long, object>("SuccessNode", (t, o) =>
             { 
                 return BehaviourReturnCode.Success;
             });
 
-            RaceNode sequence = new RaceNode("RaceNode", new System.Collections.Generic.List<BehaviourNode>() { successNode1, successNode2, successNode3 });
+            RaceNode<long, object> sequence = new RaceNode<long, object>("RaceNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode1, successNode2, successNode3 });
             var status = sequence.Visit(1, null);
 
             var state = sequence.GetState();

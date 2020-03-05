@@ -11,13 +11,13 @@ namespace BehaviourTreeTests
         {
             int visitCount = 0;
 
-            ActionNode successNode = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode = new ActionNode<long, object>("SuccessNode", (t, o) =>
                 {
                     visitCount++;
                     return BehaviourReturnCode.Success;
                 });
 
-            RepeatNode sequence = new RepeatNode("RepeatNode", successNode, 3);
+            RepeatNode<long, object> sequence = new RepeatNode<long, object>("RepeatNode", successNode, 3);
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -40,7 +40,7 @@ namespace BehaviourTreeTests
         {
             int visitCount = 0;
 
-            ActionNode successNode = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 visitCount++;
                 if (visitCount == 2)
@@ -48,7 +48,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Success;
             });
 
-            RepeatNode sequence = new RepeatNode("RepeatNode", successNode, 3);
+            RepeatNode<long, object> sequence = new RepeatNode<long, object>("RepeatNode", successNode, 3);
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -71,7 +71,7 @@ namespace BehaviourTreeTests
         {
             int visitCount = 0;
 
-            ActionNode successNode = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 visitCount++;
                 if (visitCount == 2)
@@ -79,7 +79,7 @@ namespace BehaviourTreeTests
                 return BehaviourReturnCode.Success;
             });
 
-            RepeatNode sequence = new RepeatNode("RepeatNode", successNode, 0);
+            RepeatNode<long, object> sequence = new RepeatNode<long, object>("RepeatNode", successNode, 0);
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Error, sequence.CurrentState);
@@ -90,12 +90,12 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestGetState()
         {
-            ActionNode successNode = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 return BehaviourReturnCode.Success;
             });
 
-            RepeatNode sequence = new RepeatNode("RepeatNode", successNode, 3);
+            RepeatNode<long, object> sequence = new RepeatNode<long, object>("RepeatNode", successNode, 3);
             var status = sequence.Visit(1, null);
 
             var state = sequence.GetState();

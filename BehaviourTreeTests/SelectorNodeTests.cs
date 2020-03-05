@@ -11,23 +11,23 @@ namespace BehaviourTreeTests
         {
             int lastvisited = 0;
 
-            ActionNode successNode = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode = new ActionNode<long, object>("SuccessNode", (t, o) =>
                 {
                     lastvisited = 1;
                     return BehaviourReturnCode.Success;
                 });
-            ActionNode failNode1 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailureNode", (t, o) =>
                 {
                     lastvisited = 2;
                     return BehaviourReturnCode.Failure;
                 });
-            ActionNode failNode2 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailureNode", (t, o) =>
                 {
                     lastvisited = 3;
                     return BehaviourReturnCode.Failure;
                 });
 
-            SelectorNode sequence = new SelectorNode("SelectorNode", new System.Collections.Generic.List<BehaviourNode>() { successNode, failNode1, failNode2 });
+            SelectorNode<long, object> sequence = new SelectorNode<long, object>("SelectorNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { successNode, failNode1, failNode2 });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Success, sequence.CurrentState);
@@ -40,23 +40,23 @@ namespace BehaviourTreeTests
         {
             int lastvisited = 0;
 
-            ActionNode failNode1 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 1;
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode failNode2 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 2;
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode successNode = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 lastvisited = 3;
                 return BehaviourReturnCode.Success;
             });
 
-            SelectorNode sequence = new SelectorNode("SelectorNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, failNode2, successNode });
+            SelectorNode<long, object> sequence = new SelectorNode<long, object>("SelectorNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, failNode2, successNode });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Success, sequence.CurrentState);
@@ -69,18 +69,18 @@ namespace BehaviourTreeTests
         {
             int lastvisited = 0;
 
-            ActionNode failNode1 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 1;
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode failNode2 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 2;
                 return BehaviourReturnCode.Failure;
             });
 
-            SelectorNode sequence = new SelectorNode("SelectorNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, failNode2 });
+            SelectorNode<long, object> sequence = new SelectorNode<long, object>("SelectorNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, failNode2 });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Failure, sequence.CurrentState);
@@ -93,23 +93,23 @@ namespace BehaviourTreeTests
         {
             int lastvisited = 0;
 
-            ActionNode failNode1 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 1;
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode errorNode = new ActionNode("ErrorNode", (t, o) =>
+            ActionNode<long, object> errorNode = new ActionNode<long, object>("ErrorNode", (t, o) =>
             {
                 lastvisited = 2;
                 return BehaviourReturnCode.Error;
             });
-            ActionNode successNode = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 lastvisited = 3;
                 return BehaviourReturnCode.Success;
             });
 
-            SelectorNode sequence = new SelectorNode("SelectorNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, errorNode, successNode });
+            SelectorNode<long, object> sequence = new SelectorNode<long, object>("SelectorNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, errorNode, successNode });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Error, sequence.CurrentState);
@@ -122,23 +122,23 @@ namespace BehaviourTreeTests
         {
             int lastvisited = 0;
 
-            ActionNode failNode1 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 1;
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 lastvisited = 2;
                 return BehaviourReturnCode.Running;
             });
-            ActionNode failNode2 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 3;
                 return BehaviourReturnCode.Failure;
             });
 
-            SelectorNode sequence = new SelectorNode("SelectorNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, runningNode, failNode2 });
+            SelectorNode<long, object> sequence = new SelectorNode<long, object>("SelectorNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, runningNode, failNode2 });
             var status = sequence.Visit(1, null);
 
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -152,12 +152,12 @@ namespace BehaviourTreeTests
             int lastvisited = 0;
             int runCount = 3;
 
-            ActionNode failNode1 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 1;
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 lastvisited = 2;
                 runCount--;
@@ -165,13 +165,13 @@ namespace BehaviourTreeTests
                     return BehaviourReturnCode.Success;
                 return BehaviourReturnCode.Running;
             });
-            ActionNode failNode2 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 3;
                 return BehaviourReturnCode.Failure;
             });
 
-            SelectorNode sequence = new SelectorNode("SelectorNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, runningNode, failNode2 });
+            SelectorNode<long, object> sequence = new SelectorNode<long, object>("SelectorNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, runningNode, failNode2 });
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -198,12 +198,12 @@ namespace BehaviourTreeTests
             int lastvisited = 0;
             int runCount = 3;
 
-            ActionNode failNode1 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 1;
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 lastvisited = 2;
                 runCount--;
@@ -211,13 +211,13 @@ namespace BehaviourTreeTests
                     return BehaviourReturnCode.Failure;
                 return BehaviourReturnCode.Running;
             });
-            ActionNode failNode2 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 3;
                 return BehaviourReturnCode.Failure;
             });
 
-            SelectorNode sequence = new SelectorNode("SelectorNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, runningNode, failNode2 });
+            SelectorNode<long, object> sequence = new SelectorNode<long, object>("SelectorNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, runningNode, failNode2 });
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -244,14 +244,14 @@ namespace BehaviourTreeTests
             int lastvisited = 0;
             int runCount = 3;
 
-            ActionNode failNode1 = new ActionNode("SwitchNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("SwitchNode", (t, o) =>
             {
                 lastvisited = 1;
                 if (runCount==0)
                     return BehaviourReturnCode.Success;
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode runningNode = new ActionNode("RunningNode", (t, o) =>
+            ActionNode<long, object> runningNode = new ActionNode<long, object>("RunningNode", (t, o) =>
             {
                 lastvisited = 2;
                 runCount--;
@@ -259,13 +259,13 @@ namespace BehaviourTreeTests
                     return BehaviourReturnCode.Failure;
                 return BehaviourReturnCode.Running;
             });
-            ActionNode failNode2 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 lastvisited = 3;
                 return BehaviourReturnCode.Failure;
             });
 
-            SelectorNode sequence = new SelectorNode("SelectorNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, runningNode, failNode2 });
+            SelectorNode<long, object> sequence = new SelectorNode<long, object>("SelectorNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, runningNode, failNode2 });
 
             var status = sequence.Visit(1, null);
             Assert.Equal(BehaviourReturnCode.Running, sequence.CurrentState);
@@ -296,13 +296,13 @@ namespace BehaviourTreeTests
         public void TestAddChild()
         {
             bool visited = false;
-            ActionNode successNode = new ActionNode("SuccessNode", (t, o) =>
+            ActionNode<long, object> successNode = new ActionNode<long, object>("SuccessNode", (t, o) =>
             {
                 visited = true;
                 return BehaviourReturnCode.Success;
             });
 
-            SelectorNode sequence = new SelectorNode("RandomNode");
+            SelectorNode<long, object> sequence = new SelectorNode<long, object>("RandomNode");
             sequence.AddChild(successNode);
 
             var status = sequence.Visit(1, null);
@@ -314,16 +314,16 @@ namespace BehaviourTreeTests
         [Fact]
         public void TestGetState()
         {
-            ActionNode failNode1 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode1 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
-            ActionNode failNode2 = new ActionNode("FailureNode", (t, o) =>
+            ActionNode<long, object> failNode2 = new ActionNode<long, object>("FailureNode", (t, o) =>
             {
                 return BehaviourReturnCode.Failure;
             });
 
-            SelectorNode sequence = new SelectorNode("SelectorNode", new System.Collections.Generic.List<BehaviourNode>() { failNode1, failNode2 });
+            SelectorNode<long, object> sequence = new SelectorNode<long, object>("SelectorNode", new System.Collections.Generic.List<BehaviourNode<long, object>>() { failNode1, failNode2 });
             var status = sequence.Visit(1, null);
 
             var state = sequence.GetState();

@@ -183,5 +183,29 @@ namespace BehaviourTreeTests
             Assert.IsType<WaitNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
             Assert.Equal(BehaviourReturnCode.Running, tree.Visit(1, null));
         }
+
+        [Fact]
+        public void TestActionAddConditionNodeSuccess()
+        {
+            var tree = behaviourTreeNode
+                    .Condition("True", (x, y) => true)
+                .End()
+                .Build();
+
+            Assert.IsType<ActionNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
+            Assert.Equal(BehaviourReturnCode.Success, tree.Visit(1, null));
+        }
+
+        [Fact]
+        public void TestActionAddConditionNodeFailure()
+        {
+            var tree = behaviourTreeNode
+                    .Condition("False", (x, y) => false)
+                .End()
+                .Build();
+
+            Assert.IsType<ActionNode<long, object>>(((BehaviourTree<long, object>)tree).ChildNode);
+            Assert.Equal(BehaviourReturnCode.Failure, tree.Visit(1, null));
+        }
     }
 }
